@@ -22,7 +22,9 @@ public class InvertedIndexMapper extends Mapper<Object, Text, Text, Text> {
         while (itr.hasMoreTokens()) {
             String word = itr.nextToken();
             String cleanedWord = word.replaceAll("\\p{Punct}", "");
-            context.write(new Text(cleanedWord), new Text(fileName));
+            if (!cleanedWord.isEmpty()) {
+                context.write(new Text(cleanedWord), new Text(fileName));
+            }
         }
     }
 }
