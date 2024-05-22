@@ -21,7 +21,7 @@ public class InvertedIndexMapper extends Mapper<Object, Text, Text, Text> {
         StringTokenizer itr = new StringTokenizer(value.toString());
         while (itr.hasMoreTokens()) {
             String word = itr.nextToken();
-            String cleanedWord = word.replaceAll("\\p{Punct}", "");
+            String cleanedWord = word.replaceAll("\\p{Punct}", "").toLowerCase();
             if (!cleanedWord.isEmpty()) {
                 context.write(new Text(cleanedWord), new Text(fileName));
             }
