@@ -66,6 +66,6 @@ public class StringPair implements WritableComparable<StringPair> {
     // Override toString for better readability
     @Override
     public String toString() {
-        return "(" + first + ", " + second + ")";
+        return first + "," + second;
     }
 }

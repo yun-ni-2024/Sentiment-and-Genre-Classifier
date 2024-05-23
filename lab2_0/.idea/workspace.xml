@@ -10,17 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ed9777d-c80b-466e-9a5a-f9e9d5188cd8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../lab2/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/.idea/artifacts/frequency_sort_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/.idea/artifacts/inverted_index_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2/.idea/artifacts/inverted_index_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/exp/lab2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/out/artifacts/frequency_sort_jar/frequency_sort.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/out/artifacts/inverted_index_jar/lab2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/src/main/java/com/FrequencySort/FloatStringPair.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/src/main/java/com/FrequencySort/FrequencySortMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/src/main/java/com/FrequencySort/FrequencySortReducer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/src/main/java/com/FrequencySort/FrequencySorter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab2/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab2_2/exp/TFIDF_calc.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2_2/exp/TFIDF_calc.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab2_2/out/artifacts/TFIDF_calc_jar/TFIDF_calc.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2_2/out/artifacts/TFIDF_calc_jar/TFIDF_calc.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab2_2/src/main/java/com/TFIDFCalc/StringPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2_2/src/main/java/com/TFIDFCalc/StringPair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab2_2/src/main/java/com/TFIDFCalc/TFIDFCalcReducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2_2/src/main/java/com/TFIDFCalc/TFIDFCalcReducer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab2_2/src/main/java/com/TFIDFCalc/TFIDFCalcer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2_2/src/main/java/com/TFIDFCalc/TFIDFCalcer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,24 +33,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/hadoop/workspace/lab2_0",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "/home/hadoop/workspace/lab2_0/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/hadoop/workspace/lab2_0&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/home/hadoop/workspace/lab2_0/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="lab2_0" />
@@ -75,8 +69,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
       </set>
     </attachedChunks>
   </component>
@@ -93,6 +87,7 @@
       <workItem from="1716443916353" duration="2000000" />
       <workItem from="1716452104157" duration="886000" />
       <workItem from="1716454951561" duration="3892000" />
+      <workItem from="1716461719531" duration="606000" />
     </task>
     <servers />
   </component>

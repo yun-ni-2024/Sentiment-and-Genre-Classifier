@@ -10,7 +10,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class TFIDFCalcReducer extends Reducer<Text, Text, Text, Text> {
+public class TFIDFCalcReducer extends Reducer<Text, Text, StringPair, Text> {
     @Override
     public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         String word = key.toString();
@@ -51,8 +51,9 @@ public class TFIDFCalcReducer extends Reducer<Text, Text, Text, Text> {
             int TF = entry.getValue();
             double IDF = Math.log((double)40 / (fileNum + 1)) / Math.log(2);
             double TFIDF = (double)TF * IDF;
-//            StringPair keyPair = new StringPair(fileName, word);
-            context.write(new Text(fileName + " " + word), new Text(String.format("%.2f", TFIDF)));
+            StringPair keyPair = new StringPair(fileName, word);
+//            context.write(new Text(fileName + " " + word), new Text(String.format("%.2f", TFIDF)));
+            context.write(keyPair, new Text(String.format("%.2f", TFIDF)));
 //            context.write(keyPair, new DoubleWritable(TF * IDF));
         }
 //        context.write(key, new Text(String.valueOf(num)));
