@@ -1,0 +1,6 @@
+/home/hadoop/workspace/lab2/src/main/java/com/InvertedIndex/InvertedIndexReducer.java
+/home/hadoop/workspace/lab2/src/main/java/com/FrequencySort/FrequencySortReducer.java
+/home/hadoop/workspace/lab2/src/main/java/com/InvertedIndex/InvertedIndexer.java
+/home/hadoop/workspace/lab2/src/main/java/com/FrequencySort/FrequencySorter.java
+/home/hadoop/workspace/lab2/src/main/java/com/FrequencySort/FrequencySortMapper.java
+/home/hadoop/workspace/lab2/src/main/java/com/InvertedIndex/InvertedIndexMapper.java
