@@ -1,0 +1,9 @@
+the quick brown fox jumps over the lazy dog
+this is a sample text for generating words
+hello world how are you doing today
+programming is fun and exciting
+openai provides amazing language models
+chatgpt is a powerful tool for generating text
+learning new things every day is important
+practice makes perfect so keep coding
+
