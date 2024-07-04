@@ -1,46 +1,51 @@
 package com.TriangleCount;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
+import java.util.*;
+
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class TriangleCountReducer extends Reducer<Text, Text, Text, Text> {
+public class TriangleCountReducer extends Reducer<Text, EdgeList, Text, IntWritable> {
     @Override
-    public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-        int fileCount = 0;
-        int totalFrequency = 0;
+    public void reduce(Text key, Iterable<EdgeList> values, Context context) throws IOException, InterruptedException {
+        String u = key.toString();
 
-        // Map a file name to its frequency
-        HashMap<Text, Integer> frequencies = new HashMap<>();
+        // adjacent list of u
+        Set<String> edge_u = new HashSet<>();
 
-        // Calculate the frequencies of each file
-        for (Text fileName : values) {
-            if (frequencies.containsKey(fileName)) {
-                int frequency = frequencies.get(fileName);
-                frequencies.put(fileName, frequency + 1);
-            } else {
-                frequencies.put(fileName, 1);
-                fileCount++;
+        // adjacent list of all vertices
+        HashMap<String, Set<String>> edge = new HashMap<>();
+
+        for (EdgeList edgeList : values) {
+            String v = edgeList.getVertex();
+            ArrayList<String> tmp = edgeList.getEdges();
+            Set<String> edge_v = new HashSet<>();
+            for (String w : tmp) {
+                edge_v.add(w);
             }
-            totalFrequency++;
+
+            edge_u.add(v);
+
+            // edge[v] = edge_v
+            edge.put(v, edge_v);
         }
 
-        // Calculate the average occurring frequency
-        double averageFrequency = (double) totalFrequency / fileCount;
-        String outputValue = String.format("%.2f", averageFrequency) + ",";
+        // number of triangles related to u
+        int count = 0;
 
-        // Output all <file name, frequency> pairs
-        Iterator<Map.Entry<Text, Integer>> itr = frequencies.entrySet().iterator();
-        while (itr.hasNext()) {
-            Map.Entry<Text, Integer> entry = itr.next();
-            Text fileName = entry.getKey();
-            int frequency = entry.getValue();
-            outputValue += fileName + ":" + String.format("%d", frequency) + ";";
+        for (String v : edge_u) {
+            for (String w : edge_u) {
+                if (!v.equals(w) && edge.get(v).contains(w)) {
+                    count++;
+                }
+            }
         }
 
-        context.write(key, new Text(outputValue));
+        count /= 2;
+
+        // write <u, count_u>
+        context.write(new Text(u), new IntWritable(count));
     }
 }
