@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PrepGenres:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PrepGenres_jar</output-path>
+    <root id="archive" name="PrepGenres.jar">
+      <element id="module-output" name="PrepGenres" />
+      <element id="extracted-dir" path="$USER_HOME$/hadoop_installs/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-client-common-3.2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/hadoop_installs/hadoop-3.2.1/share/hadoop/common/hadoop-common-3.2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/hadoop_installs/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-client-core-3.2.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
