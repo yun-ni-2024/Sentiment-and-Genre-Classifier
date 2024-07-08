@@ -22,7 +22,7 @@ public class WordFrequencyDriver {
 
         filterGenresLyrics(inputPath);
 
-        Job job = Job.getInstance(conf, "Analysis Word Frequency");
+        Job job = Job.getInstance(conf, "Word Frequency");
 
         job.addCacheFile(new Path(inputPath + "/genres_task23.txt").toUri());
 
@@ -35,7 +35,7 @@ public class WordFrequencyDriver {
         job.setOutputValueClass(IntWritable.class);
         job.setOutputFormatClass(CommaSeparatedOutputFormat.class);
         TextInputFormat.addInputPath(job, new Path(inputPath + "/lyrics_task23.txt"));
-        FileOutputFormat.setOutputPath(job, new Path(outputPath + "/tmp_Analysis_Word_Frequency"));
+        FileOutputFormat.setOutputPath(job, new Path(outputPath + "/tmp_Word_Frequency"));
 
         job.waitForCompletion(true);
 
