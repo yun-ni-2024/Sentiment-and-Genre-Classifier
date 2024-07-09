@@ -65,6 +65,7 @@ public class KNNMapper extends Mapper<Object, Text, Text, Text> {
         }
 
         String[] parts = line.split(",");
+        String trackId = parts[0];
         int[] attr = new int[6000];
         Arrays.fill(attr, 0);
         for (int i = 2; i < parts.length; ++i) {
@@ -74,7 +75,7 @@ public class KNNMapper extends Mapper<Object, Text, Text, Text> {
             attr[attrInd] = attrVal;
         }
 
-        int k = 5;
+        int k = 3;
         PriorityQueue<Pair> maxHeap = new PriorityQueue<>(k, new Comparator<Pair>() {
             public int compare(Pair a, Pair b) {
                 return Integer.compare(b.distance, a.distance); // 最大堆，比较距离的逆序
@@ -128,7 +129,7 @@ public class KNNMapper extends Mapper<Object, Text, Text, Text> {
                 maxLabel = entry.getKey();
             }
         }
-        context.write(key, new Text(maxLabel));
+        context.write(new Text(trackId), new Text(maxLabel));
     }
 
     public static class Pair {

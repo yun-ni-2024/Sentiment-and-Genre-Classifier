@@ -11,6 +11,7 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.LineReader;
 
+import java.io.File;
 import java.io.IOException;
 
 public class KNNDriver {
@@ -22,10 +23,11 @@ public class KNNDriver {
         String testPath = args[2];
         String outputPath = args[3];
 
-        Job job = Job.getInstance(conf, "Bayes Classification");
+        Job job = Job.getInstance(conf, "KNN Classification");
 
         job.addCacheFile(new Path(trainingPath).toUri());
-        job.addCacheFile(new Path(lyricsPath).toUri());
+        job.addCacheFile(new Path(lyricsPath + "/lyric1.txt").toUri());
+        job.addCacheFile(new Path(lyricsPath + "/lyric2.txt").toUri());
 
         job.setJarByClass(KNNDriver.class);
         job.setMapperClass(KNNMapper.class);

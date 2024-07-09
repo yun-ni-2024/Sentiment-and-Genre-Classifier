@@ -1,7 +1,6 @@
 package com.BayesClassification;
 
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
@@ -13,8 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BayesClassificationMapper extends Mapper<Object, Text, Text, Text> {
-    Map<String, Integer> labelFreq = new HashMap<>();
-    Map<String, Integer> attrFreq = new HashMap<>();
+    Map<String, Double> labelFreq = new HashMap<>();
+    Map<String, Double> attrFreq = new HashMap<>();
+    Map<String, Double> offset = new HashMap<>();
+    double alpha = 0.1;
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
@@ -33,9 +34,17 @@ public class BayesClassificationMapper extends Mapper<Object, Text, Text, Text> 
                 String[] nameParts = name.split(":");
 
                 if (nameParts.length == 1) {
-                    labelFreq.put(name, freq);
+                    labelFreq.put(name, (double) freq);
                 } else {
-                    attrFreq.put(name, freq);
+                    attrFreq.put(name, freq + alpha);
+                    String label = nameParts[0];
+                    String attrInd = nameParts[1];
+                    String key = label + ":" + attrInd;
+                    if (offset.containsKey(key)) {
+                        offset.put(key, offset.get(key) + alpha);
+                    } else {
+                        offset.put(key, alpha);
+                    }
                 }
             }
 
@@ -61,20 +70,23 @@ public class BayesClassificationMapper extends Mapper<Object, Text, Text, Text> 
             attrValues[attrIndex] = attrValue;
         }
 
-        int maxF = 0;
+        Double maxF = -1000000.0;
         String maxFLabel = "none";
-        for (Map.Entry<String, Integer> entry : labelFreq.entrySet()) {
+        for (Map.Entry<String, Double> entry : labelFreq.entrySet()) {
             String label = entry.getKey();
-            int FXYi = 1;
-            int FYi = entry.getValue();
+            Double FXYi = 0.0;
+            Double FYi = Math.log(entry.getValue());
             for (int i = 1; i <= 5000; ++i) {
                 int attrIndex = i;
                 int attrValue = attrValues[attrIndex];
-                int FxYij = attrFreq.get(label + ":" + attrIndex + ":" + attrValue);
-                FXYi *= FxYij;
+                String attrItem = label + ":" + attrIndex + ":" + attrValue;
+                if (attrFreq.containsKey(attrItem)) {
+                    FXYi += Math.log(attrFreq.get(attrItem));
+                    FXYi -= Math.log(entry.getValue() + offset.get(label + ":" + i) + alpha);
+                }
             }
-            if (FXYi * FYi > maxF) {
-                maxF = FXYi * FYi;
+            if (FXYi + FYi > maxF) {
+                maxF = FXYi + FYi;
                 maxFLabel = label;
             }
         }
