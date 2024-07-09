@@ -42,7 +42,9 @@ public class PopularityMapper extends Mapper<Object, Text, Text, IntWritable> {
         String songId = parts[1];
         int count = Integer.parseInt(parts[2]);
 
-        String title = titleMap.get(songId);
-        context.write(new Text(title), new IntWritable(count));
+        if (titleMap.containsKey(songId)) {
+            String title = titleMap.get(songId);
+            context.write(new Text(title), new IntWritable(count));
+        }
     }
 }

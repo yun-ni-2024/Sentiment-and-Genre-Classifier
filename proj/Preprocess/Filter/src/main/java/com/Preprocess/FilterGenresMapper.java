@@ -33,18 +33,18 @@ public class FilterGenresMapper extends Mapper<Object, Text, Text, Text> {
             reader_songs.close();
 
             // lyrics.txt
-            Path path_genres = cacheFiles[1];
-            BufferedReader reader_genres = new BufferedReader(new FileReader(path_genres.toString()));
-            String line_genres;
-            while ((line_genres = reader_genres.readLine()) != null)
+            Path path_lyrics = cacheFiles[1];
+            BufferedReader reader_lyrics = new BufferedReader(new FileReader(path_lyrics.toString()));
+            String line_lyrics;
+            while ((line_lyrics = reader_lyrics.readLine()) != null)
             {
-                String[] parts = line_genres.split(",");
+                String[] parts = line_lyrics.split(",");
                 String trackId = parts[0];
                 if (!trackIdSet.contains(trackId)) {
                     trackIdSet.add(trackId);
                 }
             }
-            reader_genres.close();
+            reader_lyrics.close();
         }
     }
 

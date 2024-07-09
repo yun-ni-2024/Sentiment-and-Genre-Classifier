@@ -42,7 +42,9 @@ public class ArtistSongCountMapper extends Mapper<Object, Text, Text, IntWritabl
         String songId = parts[1];
         int count = Integer.parseInt(parts[2]);
 
-        String artistId = artistIdMap.get(songId);
-        context.write(new Text(artistId), new IntWritable(count));
+        if (artistIdMap.containsKey(songId)) {
+            String artistId = artistIdMap.get(songId);
+            context.write(new Text(artistId), new IntWritable(count));
+        }
     }
 }

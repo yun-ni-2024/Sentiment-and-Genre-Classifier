@@ -42,15 +42,17 @@ public class WordFrequencyMapper extends Mapper<Object, Text, Text, IntWritable>
         String trackId = parts[0];
         String freq = parts[1].replace("[", "").replace("]", "");
 
-        String genre = genreMap.get(trackId);
-        String[] freqParts = freq.split(",");
-        for (String pairStr : freqParts) {
-            pairStr = pairStr.replace("(", "").replace(")", "");
-            String[] pair = pairStr.split(":");
-            String word = pair[0];
-            int count = Integer.parseInt(pair[1]);
+        if (genreMap.containsKey(trackId)) {
+            String genre = genreMap.get(trackId);
+            String[] freqParts = freq.split(",");
+            for (String pairStr : freqParts) {
+                pairStr = pairStr.replace("(", "").replace(")", "");
+                String[] pair = pairStr.split(":");
+                String word = pair[0];
+                int count = Integer.parseInt(pair[1]);
 
-            context.write(new Text(genre + "," + word), new IntWritable(count));
+                context.write(new Text(genre + "," + word), new IntWritable(count));
+            }
         }
     }
 }

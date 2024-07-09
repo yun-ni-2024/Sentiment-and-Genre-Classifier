@@ -13,9 +13,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.LineReader;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class PreferenceDriver {
     public static void main(String[] args) throws Exception {
@@ -38,7 +35,7 @@ public class PreferenceDriver {
         getHighest(outputPath + "/tmp_User_Song_Count/part-r-00000", outputPath + "/tmp_User_Song_Count/user_song_highest.txt");
 
         Job job2 = Job.getInstance(conf, "Artist Song Count");
-        job2.addCacheFile(new Path(inputPath + "/songs.txt").toUri());
+        job2.addCacheFile(new Path(inputPath + "/filtered_songs.txt").toUri());
         job2.setJarByClass(PreferenceDriver.class);
         job2.setMapperClass(ArtistSongCountMapper.class);
         job2.setReducerClass(ArtistSongCountReducer.class);

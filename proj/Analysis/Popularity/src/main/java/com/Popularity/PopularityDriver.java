@@ -24,9 +24,9 @@ public class PopularityDriver {
         String inputPath = args[0];
         String outputPath = args[1];
 
-        Job job = Job.getInstance(conf, "Analyze song popularity");
+        Job job = Job.getInstance(conf, "Popularity");
 
-        job.addCacheFile(new Path(inputPath + "/songs.txt").toUri());
+        job.addCacheFile(new Path(inputPath + "/filtered_songs.txt").toUri());
 
         job.setJarByClass(PopularityDriver.class);
         job.setMapperClass(PopularityMapper.class);
@@ -37,12 +37,12 @@ public class PopularityDriver {
         job.setOutputValueClass(IntWritable.class);
         job.setOutputFormatClass(CommaSeparatedOutputFormat.class);
         TextInputFormat.addInputPath(job, new Path(inputPath + "/filtered_users.txt"));
-        FileOutputFormat.setOutputPath(job, new Path(outputPath + "/tmp_Analyze_Song_Popularity"));
+        FileOutputFormat.setOutputPath(job, new Path(outputPath + "/tmp_Popularity"));
 
         job.waitForCompletion(true);
 
-        copyFileAndSort(outputPath + "/tmp_Analyze_Song_Popularity/part-r-00000", outputPath + "/task21.txt");
-        deletePath(outputPath + "/tmp_Analyze_Song_Popularity", true);
+        copyFileAndSort(outputPath + "/tmp_Popularity/part-r-00000", outputPath + "/task21.txt");
+        deletePath(outputPath + "/tmp_Popularity", true);
     }
 
     public static void deletePath(String pathStr, boolean isDeleteDir) throws IOException {

@@ -39,6 +39,7 @@ public class GenreInfoMapper extends Mapper<Object, Text, Text, Text> {
         String line = value.toString();
         String[] parts = line.split(",");
         String trackId = parts[1];
+
         if (genreMap.containsKey(trackId)) {
             String genre = genreMap.get(trackId);
 

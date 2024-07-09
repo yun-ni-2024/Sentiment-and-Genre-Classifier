@@ -20,11 +20,9 @@ public class WordFrequencyDriver {
         String inputPath = args[0];
         String outputPath = args[1];
 
-        filterGenresLyrics(inputPath);
-
         Job job = Job.getInstance(conf, "Word Frequency");
 
-        job.addCacheFile(new Path(inputPath + "/genres_task23.txt").toUri());
+        job.addCacheFile(new Path(inputPath + "/filtered_genres.txt").toUri());
 
         job.setJarByClass(WordFrequencyDriver.class);
         job.setMapperClass(WordFrequencyMapper.class);
@@ -34,7 +32,7 @@ public class WordFrequencyDriver {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
         job.setOutputFormatClass(CommaSeparatedOutputFormat.class);
-        TextInputFormat.addInputPath(job, new Path(inputPath + "/lyrics_task23.txt"));
+        TextInputFormat.addInputPath(job, new Path(inputPath + "/filtered_lyrics.txt"));
         FileOutputFormat.setOutputPath(job, new Path(outputPath + "/tmp_Word_Frequency"));
 
         job.waitForCompletion(true);
@@ -53,67 +51,6 @@ public class WordFrequencyDriver {
         }
 
         deletePath(outputPath + "/tmp_Word_Frequency", true);
-    }
-
-    public static void filterGenresLyrics(String pathStr) throws IOException {
-        Text line = new Text();
-
-        Path path_genres = new Path(pathStr + "/genres.txt");
-        Configuration configuration_genres = new Configuration();
-        FileSystem fileSystem_genres = path_genres.getFileSystem(configuration_genres);
-        FSDataInputStream inputStream_genres = fileSystem_genres.open(path_genres);
-        LineReader lineReader_genres = new LineReader(inputStream_genres, configuration_genres);
-        Set<String> genresTrackId = new HashSet<>();
-        while(lineReader_genres.readLine(line) > 0) {
-            String[] parts = line.toString().split(",");
-            String trackId = parts[0];
-            genresTrackId.add(trackId);
-        }
-        lineReader_genres.close();
-
-        Path path_lyrics = new Path(pathStr + "/lyrics.txt");
-        Configuration configuration_lyrics = new Configuration();
-        FileSystem fileSystem_lyrics = path_genres.getFileSystem(configuration_lyrics);
-        FSDataInputStream inputStream_lyrics = fileSystem_genres.open(path_lyrics);
-        LineReader lineReader_lyrics = new LineReader(inputStream_lyrics, configuration_lyrics);
-        Set<String> lyricsTrackId = new HashSet<>();
-        while(lineReader_lyrics.readLine(line) > 0) {
-            String[] parts = line.toString().split(",");
-            String trackId = parts[0];
-            lyricsTrackId.add(trackId);
-        }
-        lineReader_lyrics.close();
-
-        Set<String> commonTrackId = new HashSet<>(genresTrackId);
-        commonTrackId.retainAll(lyricsTrackId);
-
-        Path path_filtered_genres = new Path(pathStr + "/genres_task23.txt");
-        FSDataOutputStream outputStream_genres = fileSystem_genres.create(path_filtered_genres);
-        inputStream_genres = fileSystem_genres.open(path_genres);
-        lineReader_genres = new LineReader(inputStream_genres, configuration_genres);
-        while(lineReader_genres.readLine(line) > 0) {
-            String[] parts = line.toString().split(",");
-            String trackId = parts[0];
-            if (commonTrackId.contains(trackId)) {
-                String str = line.toString() + "\n";
-                outputStream_genres.write(str.getBytes());
-            }
-        }
-        outputStream_genres.close();
-
-        Path path_filtered_lyrics = new Path(pathStr + "/lyrics_task23.txt");
-        FSDataOutputStream outputStream_lyrics = fileSystem_genres.create(path_filtered_lyrics);
-        inputStream_lyrics = fileSystem_genres.open(path_lyrics);
-        lineReader_lyrics = new LineReader(inputStream_lyrics, configuration_lyrics);
-        while(lineReader_lyrics.readLine(line) > 0) {
-            String[] parts = line.toString().split(",");
-            String trackId = parts[0];
-            if (commonTrackId.contains(trackId)) {
-                String str = line.toString() + "\n";
-                outputStream_lyrics.write(str.getBytes());
-            }
-        }
-        outputStream_lyrics.close();
     }
 
     public static void deletePath(String pathStr, boolean isDeleteDir) throws IOException {

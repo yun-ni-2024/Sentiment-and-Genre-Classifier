@@ -31,7 +31,7 @@ public class DurationDriver {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
         job.setOutputFormatClass(CommaSeparatedOutputFormat.class);
-        TextInputFormat.addInputPath(job, new Path(inputPath + "/songs.txt"));
+        TextInputFormat.addInputPath(job, new Path(inputPath + "/filtered_songs.txt"));
         FileOutputFormat.setOutputPath(job, new Path(outputPath + "/tmp_Analyze_Song_Duration"));
 
         job.waitForCompletion(true);

@@ -29,7 +29,7 @@ public class GenreCountDriver {
         job.setMapOutputValueClass(IntWritable.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        TextInputFormat.addInputPath(job, new Path(inputPath + "/genres_task23.txt"));
+        TextInputFormat.addInputPath(job, new Path(inputPath + "/filtered_genres.txt"));
         FileOutputFormat.setOutputPath(job, new Path(outputPath + "/tmp_Genre_Count"));
         job.waitForCompletion(true);
 
