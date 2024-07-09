@@ -1,11 +1,10 @@
-package com.BayesClassification;
+package com.KNN;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
@@ -14,33 +13,35 @@ import org.apache.hadoop.util.LineReader;
 
 import java.io.IOException;
 
-public class BayesClassificationDriver {
+public class KNNDriver {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
 
-        String freqPath = args[0];
-        String testPath = args[1];
-        String outputPath = args[2];
+        String trainingPath = args[0];
+        String lyricsPath = args[1];
+        String testPath = args[2];
+        String outputPath = args[3];
 
         Job job = Job.getInstance(conf, "Bayes Classification");
 
-        job.addCacheFile(new Path(freqPath).toUri());
+        job.addCacheFile(new Path(trainingPath).toUri());
+        job.addCacheFile(new Path(lyricsPath).toUri());
 
-        job.setJarByClass(BayesClassificationDriver.class);
-        job.setMapperClass(BayesClassificationMapper.class);
-        job.setReducerClass(BayesClassificationReducer.class);
+        job.setJarByClass(KNNDriver.class);
+        job.setMapperClass(KNNMapper.class);
+        job.setReducerClass(KNNReducer.class);
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(Text.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
         job.setOutputFormatClass(CommaSeparatedOutputFormat.class);
         TextInputFormat.addInputPath(job, new Path(testPath));
-        FileOutputFormat.setOutputPath(job, new Path(outputPath + "/tmp_Bayes_Classification"));
+        FileOutputFormat.setOutputPath(job, new Path(outputPath + "/tmp_KNN"));
 
         job.waitForCompletion(true);
 
-        copyFile(outputPath + "/tmp_Bayes_Classification/part-r-00000", outputPath + "/task3.txt");
-        deletePath(outputPath + "/tmp_Bayes_Classification", true);
+        copyFile(outputPath + "/tmp_KNN/part-r-00000", outputPath + "/task3.txt");
+        deletePath(outputPath + "/tmp_KNN", true);
     }
 
     public static void deletePath(String pathStr, boolean isDeleteDir) throws IOException {

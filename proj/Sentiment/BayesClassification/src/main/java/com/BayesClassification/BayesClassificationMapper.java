@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BayesClassificationMapper extends Mapper<Object, Text, Text, IntWritable> {
+public class BayesClassificationMapper extends Mapper<Object, Text, Text, Text> {
     Map<String, Integer> labelFreq = new HashMap<>();
     Map<String, Integer> attrFreq = new HashMap<>();
 
