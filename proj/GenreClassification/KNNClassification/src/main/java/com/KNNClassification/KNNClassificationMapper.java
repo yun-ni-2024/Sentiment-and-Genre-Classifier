@@ -34,7 +34,12 @@ public class KNNClassificationMapper extends Mapper<Object, Text, Text, Text> {
     @Override
     public void map(Object key, Text value, Mapper.Context context) throws IOException, InterruptedException {
         String line = value.toString();
+        if (line.equals("")) {
+            return;
+        }
+
         String[] parts = line.split("<SEP>", -1);
+//        context.write(new Text(line), new Text(parts.length + ""));
         String trackId = parts[0];
         String currFeature = parts[2] + "<SEP>" + parts[3];
 
