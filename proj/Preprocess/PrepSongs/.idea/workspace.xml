@@ -9,13 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae7e067b-9864-4e7a-a22e-a5cc60246ca7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exp/PrepSongs-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exp/songs/_SUCCESS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exp/songs/part-r-00000" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/PrepSongs/PrepSongsDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PrepSongs/PrepSongsDriver.java" afterDir="false" />
-    </list>
+    <list default="true" id="ae7e067b-9864-4e7a-a22e-a5cc60246ca7" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
