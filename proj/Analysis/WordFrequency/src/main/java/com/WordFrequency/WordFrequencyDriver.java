@@ -10,8 +10,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.LineReader;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 public class WordFrequencyDriver {
     public static void main(String[] args) throws Exception {

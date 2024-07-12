@@ -9,7 +9,11 @@ app = Flask(__name__)
 CORS(app)  # 允许所有源访问
 
 HDFS_PATH = "/user/hadoop"  # HDFS 目标路径
-current_status = ""
+status_prep = ""
+status_anal_popularity = ""
+status_anal_preference = ""
+status_anal_duration = ""
+status_anal_wordFrequency = ""
 
 @app.route('/process/prep', methods=['POST'])
 def process_prep():
@@ -38,17 +42,17 @@ def process_prep():
             # os.remove(file.filename)  # Remove the uploaded ZIP file after extraction
 
             hdfs_path = os.path.join(HDFS_PATH, 'gui')
-            global current_status
+            global status_prep
 
             # Transfer the extracted files to HDFS
-            # current_status = 'Transferring files to HDFS ...'
+            # status_prep = 'Transferring files to HDFS ...'
             # subprocess.run([
             #     "hdfs", "dfs", "-put",
             #     os.path.join(os.getcwd(), folder_name),
             #     hdfs_path
             # ])
 
-            # current_status = 'Preprocessing songs ...'
+            # status_prep = 'Preprocessing songs ...'
             # subprocess.run([
             #     "hadoop", "jar",
             #     "jars/PrepSongs.jar",
@@ -61,7 +65,7 @@ def process_prep():
             #     os.path.join(os.getcwd(), "data", "songs.txt")
             # ])
 
-            # current_status = 'Preprocessing lyrics ...'
+            # status_prep = 'Preprocessing lyrics ...'
             # subprocess.run([
             #     "hadoop", "jar",
             #     "jars/PrepLyrics.jar",
@@ -74,7 +78,7 @@ def process_prep():
             #     os.path.join(os.getcwd(), "data", "lyrics.txt")
             # ])
 
-            # current_status = 'Preprocessing genres ...'
+            # status_prep = 'Preprocessing genres ...'
             # subprocess.run([
             #     "hadoop", "jar",
             #     "jars/PrepGenres.jar",
@@ -87,7 +91,7 @@ def process_prep():
             #     os.path.join(os.getcwd(), "data", "genres.txt")
             # ])
 
-            # current_status = 'Preprocessing users ...'
+            # status_prep = 'Preprocessing users ...'
             # subprocess.run([
             #     "hadoop", "jar",
             #     "jars/PrepUsers.jar",
@@ -100,7 +104,7 @@ def process_prep():
             #     os.path.join(os.getcwd(), "data", "users.txt")
             # ])
 
-            # current_status = 'Filtering data ...'
+            # status_prep = 'Filtering data ...'
             # subprocess.run([
             #     "hadoop", "jar",
             #     "jars/Filter.jar",
@@ -128,39 +132,324 @@ def process_prep():
             #     os.path.join(os.getcwd(), "data", "filtered_users.txt")
             # ])
 
-            # with zipfile.ZipFile(os.path.join('data', 'songdata.zip'), 'w', zipfile.ZIP_DEFLATED) as zipf:
+            # with zipfile.ZipFile(os.path.join('data', 'preprocess.zip'), 'w', zipfile.ZIP_DEFLATED) as zipf:
             #     for filename in os.listdir('data'):
             #         if filename.endswith('.txt'):
             #             zipf.write(os.path.join('data', filename), arcname=filename)
 
-            current_status = 'Successful!'
-
-            # subprocess.run([
-            #     "hdfs", "dfs", "-rm", "-r",
-            #     os.path.join("gui", "SongDataset")
-            # ])
-
+            status_prep = 'Successful!'
             return jsonify({'message': 'Successful!'}), 200
         
         except Exception as e:
-            current_status = f'Error: {str(e)}'
+            status_prep = f'Error: {str(e)}'
             print(e)
             return jsonify({'message': f'Error: {str(e)}'}), 500
 
-@app.route('/status', methods=['GET'])
-def get_status():
-    global current_status
-    return jsonify({'status': current_status})
+@app.route('/process/anal/popularity', methods=['POST'])
+def process_anal_popularity():
+    try:
+        hdfs_path = os.path.join(HDFS_PATH, 'gui')
+        global status_anal_popularity
+
+        # status_anal_popularity = "Analyzing popularity ..."
+        # subprocess.run([
+        #     "hadoop", "jar",
+        #     os.path.join("jars", "Popularity.jar"),
+        #     os.path.join(hdfs_path, "SongDataset"),
+        #     os.path.join(hdfs_path, "result")
+        # ])
+
+        # subprocess.run([
+        #     "hdfs", "dfs", "-get",
+        #     os.path.join(hdfs_path, "result", "task21.txt"),
+        #     os.path.join(os.getcwd(), "data", "task21.txt")
+        # ])
+
+        # with zipfile.ZipFile(os.path.join('data', 'analysis_popularity.zip'), 'w', zipfile.ZIP_DEFLATED) as zipf:
+        #     for filename in os.listdir('data'):
+        #         if filename in ['task21.txt']:
+        #             zipf.write(os.path.join('data', filename), arcname=filename)
+
+        status_anal_popularity = "Successful!"
+        return jsonify({'message': 'Successful!'}), 200
+    except Exception as e:
+        status_anal_popularity = f'Error: {str(e)}'
+        print(e)
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/process/anal/preference', methods=['POST'])
+def process_anal_preference():
+    try:
+        hdfs_path = os.path.join(HDFS_PATH, 'gui')
+        global status_anal_preference
+
+        status_anal_preference = "Analyzing preference ..."
+        subprocess.run([
+            "hadoop", "jar",
+            os.path.join("jars", "Preference.jar"),
+            os.path.join(hdfs_path, "SongDataset"),
+            os.path.join(hdfs_path, "result")
+        ])
+
+        subprocess.run([
+            "hdfs", "dfs", "-get",
+            os.path.join(hdfs_path, "result", "task22.txt"),
+            os.path.join(os.getcwd(), "data", "task22.txt")
+        ])
+
+        with zipfile.ZipFile(os.path.join('data', 'analysis_preference.zip'), 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for filename in os.listdir('data'):
+                if filename in ['task22.txt']:
+                    zipf.write(os.path.join('data', filename), arcname=filename)
+
+        status_anal_preference = "Successful!"
+        return jsonify({'message': 'Successful!'}), 200
+    except Exception as e:
+        status_anal_popularity = f'Error: {str(e)}'
+        print(e)
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/process/anal/duration', methods=['POST'])
+def process_anal_duration():
+    try:
+        hdfs_path = os.path.join(HDFS_PATH, 'gui')
+        global status_anal_duration
+
+        # status_anal_duration = "Analyzing duration ..."
+        # subprocess.run([
+        #     "hadoop", "jar",
+        #     os.path.join("jars", "Duration.jar"),
+        #     os.path.join(hdfs_path, "SongDataset"),
+        #     os.path.join(hdfs_path, "result")
+        # ])
+
+        # subprocess.run([
+        #     "hdfs", "dfs", "-get",
+        #     os.path.join(hdfs_path, "result", "task23.txt"),
+        #     os.path.join(os.getcwd(), "data", "task23.txt")
+        # ])
+
+        status_anal_duration = "Generating plot ..."
+        subprocess.run([
+            "python3",
+            os.path.join(os.getcwd(), "src", "task23.py")
+        ])
+
+        with zipfile.ZipFile(os.path.join('data', 'analysis_duration.zip'), 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for filename in os.listdir('data'):
+                if filename in ['task23.txt', 'task23.png']:
+                    zipf.write(os.path.join('data', filename), arcname=filename)
+
+        status_anal_duration = "Successful!"
+        return jsonify({'message': 'Successful!'}), 200
+    except Exception as e:
+        status_anal_popularity = f'Error: {str(e)}'
+        print(e)
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/process/anal/wordFrequency', methods=['POST'])
+def process_anal_wordFrequency():
+    try:
+        hdfs_path = os.path.join(HDFS_PATH, 'gui')
+        global status_anal_wordFrequency
+
+        # status_anal_wordFrequency = "Analyzing word frequency ..."
+        # subprocess.run([
+        #     "hadoop", "jar",
+        #     os.path.join("jars", "WordFrequency.jar"),
+        #     os.path.join(hdfs_path, "SongDataset"),
+        #     os.path.join(hdfs_path, "result")
+        # ])
+
+        # status_anal_wordFrequency = "Finding most frequent genre ..."
+        # subprocess.run([
+        #     "hadoop", "jar",
+        #     os.path.join("jars", "GenreCount.jar"),
+        #     os.path.join(hdfs_path, "SongDataset"),
+        #     os.path.join(hdfs_path, "result")
+        # ])
+
+        # subprocess.run([
+        #     "hdfs", "dfs", "-get",
+        #     os.path.join(hdfs_path, "result", "task24"),
+        #     os.path.join(os.getcwd(), "data", "task24")
+        # ])
+
+        # subprocess.run([
+        #     "hdfs", "dfs", "-get",
+        #     os.path.join(hdfs_path, "result", "genre_highest.txt"),
+        #     os.path.join(os.getcwd(), "data", "genre_highest.txt")
+        # ])
+
+        status_anal_wordFrequency = "Generating plot ..."
+        subprocess.run([
+            "python3",
+            os.path.join(os.getcwd(), "src", "task24.py")
+        ])
+
+        with zipfile.ZipFile(os.path.join('data', 'analysis_wordFrequency.zip'), 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for filename in os.listdir('data'):
+                if filename in ['task24.png']:
+                    zipf.write(os.path.join('data', filename), arcname=filename)
+            for root, dirs, files in os.walk('data/task24'):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    arcname = os.path.relpath(file_path, os.path.dirname('data/task24'))
+                    zipf.write(file_path, arcname)
+
+        status_anal_wordFrequency = "Successful!"
+        return jsonify({'message': 'Successful!'}), 200
+    except Exception as e:
+        status_anal_popularity = f'Error: {str(e)}'
+        print(e)
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/status/prep', methods=['GET'])
+def get_status_prep():
+    global status_prep
+    return jsonify({'status': status_prep})
+
+@app.route('/status/anal/popularity', methods=['GET'])
+def get_status_anal_popularity():
+    global status_anal_popularity
+    return jsonify({'status': status_anal_popularity})
+
+@app.route('/status/anal/preference', methods=['GET'])
+def get_status_anal_preference():
+    global status_anal_preference
+    return jsonify({'status': status_anal_preference})
+
+@app.route('/status/anal/duration', methods=['GET'])
+def get_status_anal_duration():
+    global status_anal_duration
+    return jsonify({'status': status_anal_duration})
+
+@app.route('/status/anal/wordFrequency', methods=['GET'])
+def get_status_anal_wordFrequency():
+    global status_anal_wordFrequency
+    return jsonify({'status': status_anal_wordFrequency})
+
+@app.route('/result/anal/popularity', methods=['GET'])
+def get_result_anal_popularity():
+    try:
+        result_file_path = os.path.join(os.getcwd(), 'data', 'task21.txt')
+        
+        if not os.path.exists(result_file_path):
+            return jsonify({'message': 'Result file not found'}), 404
+        
+        with open(result_file_path, 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            lines = [line.strip() for line in lines]
+
+        return jsonify(data=lines)
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/result/anal/preference', methods=['GET'])
+def get_result_anal_preference():
+    try:
+        result_file_path = os.path.join(os.getcwd(), 'data', 'task22.txt')
+        
+        if not os.path.exists(result_file_path):
+            return jsonify({'message': 'Result file not found'}), 404
+        
+        with open(result_file_path, 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            lines = [line.strip() for line in lines]
+
+        return jsonify(data=lines)
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/result/anal/duration', methods=['GET'])
+def get_result_anal_duration():
+    try:
+        result_image_path = os.path.join(os.getcwd(), 'data', 'task23.png')
+        
+        if not os.path.exists(result_image_path):
+            return jsonify({'message': 'Result file not found'}), 404
+
+        return send_file(result_image_path, mimetype='image/png')
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/result/anal/wordFrequency', methods=['GET'])
+def get_result_anal_wordFrequency():
+    try:
+        result_image_path = os.path.join(os.getcwd(), 'data', 'task24.png')
+        
+        if not os.path.exists(result_image_path):
+            return jsonify({'message': 'Result file not found'}), 404
+
+        return send_file(result_image_path, mimetype='image/png')
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
 
 @app.route('/download/prep', methods=['GET'])
 def download_prep():
     try:
-        result_file_path = os.path.join(os.getcwd(), 'data', 'songdata.zip')
+        download_file_path = os.path.join(os.getcwd(), 'data', 'preprocess.zip')
         
-        if not os.path.exists(result_file_path):
+        if not os.path.exists(download_file_path):
             return jsonify({'message': 'Result file not found'}), 404
 
-        return send_file(result_file_path, as_attachment=True)
+        return send_file(download_file_path, as_attachment=True)
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/download/anal/popularity', methods=['GET'])
+def download_anal_popularity():
+    try:
+        download_file_path = os.path.join(os.getcwd(), 'data', 'analysis_popularity.zip')
+        
+        if not os.path.exists(download_file_path):
+            return jsonify({'message': 'Result file not found'}), 404
+
+        return send_file(download_file_path, as_attachment=True)
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/download/anal/preference', methods=['GET'])
+def download_anal_preference():
+    try:
+        download_file_path = os.path.join(os.getcwd(), 'data', 'analysis_preference.zip')
+        
+        if not os.path.exists(download_file_path):
+            return jsonify({'message': 'Result file not found'}), 404
+
+        return send_file(download_file_path, as_attachment=True)
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/download/anal/duration', methods=['GET'])
+def download_anal_duration():
+    try:
+        download_file_path = os.path.join(os.getcwd(), 'data', 'analysis_duration.zip')
+        
+        if not os.path.exists(download_file_path):
+            return jsonify({'message': 'Result file not found'}), 404
+
+        return send_file(download_file_path, as_attachment=True)
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/download/anal/wordFrequency', methods=['GET'])
+def download_anal_wordFrequency():
+    try:
+        download_file_path = os.path.join(os.getcwd(), 'data', 'analysis_wordFrequency.zip')
+        
+        if not os.path.exists(download_file_path):
+            return jsonify({'message': 'Result file not found'}), 404
+
+        return send_file(download_file_path, as_attachment=True)
     
     except Exception as e:
         return jsonify({'message': f'Error: {str(e)}'}), 500

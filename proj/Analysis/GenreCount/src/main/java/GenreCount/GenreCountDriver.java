@@ -68,7 +68,7 @@ public class GenreCountDriver {
             }
         }
 
-        String str = maxCountName + "," + maxCount + "\n";
+        String str = maxCountName + "\n";
         outputStream.write(str.getBytes());
 
         lineReader.close();
