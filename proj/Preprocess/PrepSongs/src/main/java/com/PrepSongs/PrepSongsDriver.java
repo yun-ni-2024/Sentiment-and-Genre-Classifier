@@ -21,7 +21,7 @@ public class PrepSongsDriver {
         String inputPath = args[0];
         String outputPath = args[1];
 
-        Job job = Job.getInstance(conf, "Preprocess songs");
+        Job job = Job.getInstance(conf, "Preprocess Songs");
 
         job.setJarByClass(PrepSongsDriver.class);
         job.setMapperClass(PrepSongsMapper.class);
@@ -32,12 +32,12 @@ public class PrepSongsDriver {
         job.setOutputValueClass(Text.class);
         job.setInputFormatClass(FilenameInputFormat.class);
         TextInputFormat.addInputPath(job, new Path(inputPath));
-        FileOutputFormat.setOutputPath(job, new Path(outputPath + "/tmp_Preprocess_songs"));
+        FileOutputFormat.setOutputPath(job, new Path(outputPath + "/tmp_Preprocess_Songs"));
 
         job.waitForCompletion(true);
 
-        copyFile(outputPath + "/tmp_Preprocess_songs/part-r-00000", outputPath + "/songs.txt");
-        deletePath(outputPath + "/tmp_Preprocess_songs", true);
+        copyFile(outputPath + "/tmp_Preprocess_Songs/part-r-00000", outputPath + "/songs.txt");
+        deletePath(outputPath + "/tmp_Preprocess_Songs", true);
     }
 
     public static void deletePath(String pathStr, boolean isDeleteDir) throws IOException {

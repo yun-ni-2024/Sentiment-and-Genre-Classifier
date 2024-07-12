@@ -21,34 +21,34 @@ public class RemoveRedundantDriver {
         String inputPath = args[0];
         String outputPath = args[1];
 
-//        Job job1 = Job.getInstance(conf, "Remove Redundant Lyrics");
-//        job1.addCacheFile(new Path(inputPath + "/songs.txt").toUri());
-//        job1.setJarByClass(RemoveRedundantDriver.class);
-//        job1.setMapperClass(RemoveRedundantLyricsMapper.class);
-//        job1.setReducerClass(RemoveRedundantLyricsReducer.class);
-//        job1.setMapOutputKeyClass(Text.class);
-//        job1.setMapOutputValueClass(Text.class);
-//        job1.setOutputKeyClass(NullWritable.class);
-//        job1.setOutputValueClass(Text.class);
-//        TextInputFormat.addInputPath(job1, new Path(inputPath + "/lyrics.txt"));
-//        FileOutputFormat.setOutputPath(job1, new Path(outputPath + "/lyrics_txt"));
-//        job1.waitForCompletion(true);
+        Job job1 = Job.getInstance(conf, "Remove Redundant Lyrics");
+        job1.addCacheFile(new Path(inputPath + "/songs.txt").toUri());
+        job1.setJarByClass(RemoveRedundantDriver.class);
+        job1.setMapperClass(RemoveRedundantLyricsMapper.class);
+        job1.setReducerClass(RemoveRedundantLyricsReducer.class);
+        job1.setMapOutputKeyClass(Text.class);
+        job1.setMapOutputValueClass(Text.class);
+        job1.setOutputKeyClass(NullWritable.class);
+        job1.setOutputValueClass(Text.class);
+        TextInputFormat.addInputPath(job1, new Path(inputPath + "/lyrics.txt"));
+        FileOutputFormat.setOutputPath(job1, new Path(outputPath + "/lyrics_txt"));
+        job1.waitForCompletion(true);
 
-//        Job job2 = Job.getInstance(conf, "Remove Redundant Genres");
-//        job2.addCacheFile(new Path(inputPath + "/songs.txt").toUri());
-//        job2.setJarByClass(RemoveRedundantDriver.class);
-//        job2.setMapperClass(RemoveRedundantGenresMapper.class);
-//        job2.setReducerClass(RemoveRedundantGenresReducer.class);
-//        job2.setMapOutputKeyClass(Text.class);
-//        job2.setMapOutputValueClass(Text.class);
-//        job2.setOutputKeyClass(NullWritable.class);
-//        job2.setOutputValueClass(Text.class);
-//        TextInputFormat.addInputPath(job2, new Path(inputPath + "/genres.txt"));
-//        FileOutputFormat.setOutputPath(job2, new Path(outputPath + "/tmp_Remove_Redundant_Genres"));
-//        job2.waitForCompletion(true);
-//
-//        copyFile(outputPath + "/tmp_Remove_Redundant_Genres/part-r-00000", outputPath + "/filtered_genres.txt");
-//        deletePath(outputPath + "/tmp_Remove_Redundant_Genres", true);
+        Job job2 = Job.getInstance(conf, "Remove Redundant Genres");
+        job2.addCacheFile(new Path(inputPath + "/songs.txt").toUri());
+        job2.setJarByClass(RemoveRedundantDriver.class);
+        job2.setMapperClass(RemoveRedundantGenresMapper.class);
+        job2.setReducerClass(RemoveRedundantGenresReducer.class);
+        job2.setMapOutputKeyClass(Text.class);
+        job2.setMapOutputValueClass(Text.class);
+        job2.setOutputKeyClass(NullWritable.class);
+        job2.setOutputValueClass(Text.class);
+        TextInputFormat.addInputPath(job2, new Path(inputPath + "/genres.txt"));
+        FileOutputFormat.setOutputPath(job2, new Path(outputPath + "/tmp_Remove_Redundant_Genres"));
+        job2.waitForCompletion(true);
+
+        copyFile(outputPath + "/tmp_Remove_Redundant_Genres/part-r-00000", outputPath + "/filtered_genres.txt");
+        deletePath(outputPath + "/tmp_Remove_Redundant_Genres", true);
 
         Job job3 = Job.getInstance(conf, "Remove Redundant Users");
         job3.addCacheFile(new Path(inputPath + "/songs.txt").toUri());
