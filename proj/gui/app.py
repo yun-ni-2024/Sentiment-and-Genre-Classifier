@@ -14,6 +14,7 @@ status_anal_popularity = ""
 status_anal_preference = ""
 status_anal_duration = ""
 status_anal_wordFrequency = ""
+status_anal_genreInfo = ""
 
 @app.route('/process/prep', methods=['POST'])
 def process_prep():
@@ -287,7 +288,7 @@ def process_anal_wordFrequency():
             os.path.join(os.getcwd(), "src", "task24.py")
         ])
 
-        with zipfile.ZipFile(os.path.join('data', 'analysis_wordFrequency.zip'), 'w', zipfile.ZIP_DEFLATED) as zipf:
+        with zipfile.ZipFile(os.path.join('data', 'analysis_genreInfo.zip'), 'w', zipfile.ZIP_DEFLATED) as zipf:
             for filename in os.listdir('data'):
                 if filename in ['task24.png']:
                     zipf.write(os.path.join('data', filename), arcname=filename)
@@ -298,6 +299,44 @@ def process_anal_wordFrequency():
                     zipf.write(file_path, arcname)
 
         status_anal_wordFrequency = "Successful!"
+        return jsonify({'message': 'Successful!'}), 200
+    except Exception as e:
+        status_anal_popularity = f'Error: {str(e)}'
+        print(e)
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/process/anal/genreInfo', methods=['POST'])
+def process_anal_genreInfo():
+    try:
+        hdfs_path = os.path.join(HDFS_PATH, 'gui')
+        global status_anal_genreInfo
+
+        status_anal_genreInfo = "Analyzing genre information ..."
+        subprocess.run([
+            "hadoop", "jar",
+            os.path.join("jars", "GenreInfo.jar"),
+            os.path.join(hdfs_path, "SongDataset"),
+            os.path.join(hdfs_path, "result")
+        ])
+
+        subprocess.run([
+            "hdfs", "dfs", "-get",
+            os.path.join(hdfs_path, "result", "task25.txt"),
+            os.path.join(os.getcwd(), "data", "task25.txt")
+        ])
+
+        status_anal_genreInfo = "Generating plot ..."
+        subprocess.run([
+            "python3",
+            os.path.join(os.getcwd(), "src", "task25.py")
+        ])
+
+        with zipfile.ZipFile(os.path.join('data', 'analysis_genreInfo.zip'), 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for filename in os.listdir('data'):
+                if filename in ['task25.txt', 'task25.png']:
+                    zipf.write(os.path.join('data', filename), arcname=filename)
+
+        status_anal_genreInfo = "Successful!"
         return jsonify({'message': 'Successful!'}), 200
     except Exception as e:
         status_anal_popularity = f'Error: {str(e)}'
@@ -328,6 +367,11 @@ def get_status_anal_duration():
 def get_status_anal_wordFrequency():
     global status_anal_wordFrequency
     return jsonify({'status': status_anal_wordFrequency})
+
+@app.route('/status/anal/genreInfo', methods=['GET'])
+def get_status_anal_genreInfo():
+    global status_anal_genreInfo
+    return jsonify({'status': status_anal_genreInfo})
 
 @app.route('/result/anal/popularity', methods=['GET'])
 def get_result_anal_popularity():
@@ -380,6 +424,19 @@ def get_result_anal_duration():
 def get_result_anal_wordFrequency():
     try:
         result_image_path = os.path.join(os.getcwd(), 'data', 'task24.png')
+        
+        if not os.path.exists(result_image_path):
+            return jsonify({'message': 'Result file not found'}), 404
+
+        return send_file(result_image_path, mimetype='image/png')
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/result/anal/genreInfo', methods=['GET'])
+def get_result_anal_genreInfo():
+    try:
+        result_image_path = os.path.join(os.getcwd(), 'data', 'task25.png')
         
         if not os.path.exists(result_image_path):
             return jsonify({'message': 'Result file not found'}), 404
@@ -445,6 +502,19 @@ def download_anal_duration():
 def download_anal_wordFrequency():
     try:
         download_file_path = os.path.join(os.getcwd(), 'data', 'analysis_wordFrequency.zip')
+        
+        if not os.path.exists(download_file_path):
+            return jsonify({'message': 'Result file not found'}), 404
+
+        return send_file(download_file_path, as_attachment=True)
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/download/anal/genreInfo', methods=['GET'])
+def download_anal_genreInfo():
+    try:
+        download_file_path = os.path.join(os.getcwd(), 'data', 'analysis_genreInfo.zip')
         
         if not os.path.exists(download_file_path):
             return jsonify({'message': 'Result file not found'}), 404
