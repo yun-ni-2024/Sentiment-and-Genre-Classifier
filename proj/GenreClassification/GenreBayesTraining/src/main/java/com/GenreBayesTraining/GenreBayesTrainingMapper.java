@@ -47,36 +47,19 @@ public class GenreBayesTrainingMapper extends Mapper<Object, Text, Text, IntWrit
 
         if (genreMap.containsKey(trackId)) {
             String label = genreMap.get(trackId);
-            context.write(new Text(label), new IntWritable(1));
 
             String artistName = parts[2];
-            String[] wordsArtist = artistName.split("\\W+");
+            String[] wordsArtist = artistName.split(" ");
             for (String word : wordsArtist) {
-                for (int i = 0; i < word.length(); ++i) {
-                    int attrIndex = i;
-                    int attrValue = word.charAt(i);
-                    context.write(new Text(label + ":" + attrIndex + ":" + attrValue), new IntWritable(1));
-                }
-                for (int i = word.length(); i < 50; ++i) {
-                    int attrIndex = i;
-                    int attrValue = 0;
-                    context.write(new Text(label + ":" + attrIndex + ":" + attrValue), new IntWritable(1));
-                }
+                context.write(new Text(label + "<SEP>a<SEP>" + word), new IntWritable(1));
+                context.write(new Text(label), new IntWritable(1));
             }
 
             String songName = parts[3];
-            String[] wordsSong = songName.split("\\W+");
+            String[] wordsSong = songName.split(" ");
             for (String word : wordsSong) {
-                for (int i = 0; i < word.length(); ++i) {
-                    int attrIndex = i;
-                    int attrValue = word.charAt(i);
-                    context.write(new Text(label + ":" + (attrIndex + 50) + ":" + attrValue), new IntWritable(1));
-                }
-                for (int i = word.length(); i < 100; ++i) {
-                    int attrIndex = i;
-                    int attrValue = 0;
-                    context.write(new Text(label + ":" + (attrIndex + 50) + ":" + attrValue), new IntWritable(1));
-                }
+                context.write(new Text(label + "<SEP>s<SEP>" + word), new IntWritable(1));
+                context.write(new Text(label), new IntWritable(1));
             }
         }
     }

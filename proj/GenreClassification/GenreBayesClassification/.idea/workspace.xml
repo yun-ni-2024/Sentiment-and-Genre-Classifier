@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="GenreBayesClassification:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4108860e-c31b-4f47-a55f-fbe9e4e05523" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/GenreBayesClassification_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/GenreBayesClassification_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exp/GenreBayesClassification.jar" beforeDir="false" afterPath="$PROJECT_DIR$/exp/GenreBayesClassification.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exp/task4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/exp/task4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exp/unique_tracks_mini.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/GenreBayesClassification_jar/GenreBayesClassification.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/GenreBayesClassification_jar/GenreBayesClassification.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GenreBayesClassification/CommaSeparatedOutputFormat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GenreBayesClassification/GenreBayesClassificationDriver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GenreBayesClassification/GenreBayesClassificationMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GenreBayesClassification/GenreBayesClassificationReducer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GenreBayesTraining/exp/GenreBayesTraining.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../GenreBayesTraining/exp/GenreBayesTraining.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GenreBayesTraining/out/artifacts/GenreBayesTraining_jar/GenreBayesTraining.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../GenreBayesTraining/out/artifacts/GenreBayesTraining_jar/GenreBayesTraining.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GenreBayesTraining/src/main/java/com/GenreBayesTraining/CommaSeparatedOutputFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GenreBayesTraining/src/main/java/com/GenreBayesTraining/CommaSeparatedOutputFormat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GenreBayesTraining/src/main/java/com/GenreBayesTraining/GenreBayesTrainingMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GenreBayesTraining/src/main/java/com/GenreBayesTraining/GenreBayesTrainingMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/.idea/artifacts/BayesClassification_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/exp/BayesClassification.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/exp/bayes_frequency.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/exp/task3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/out/artifacts/BayesClassification_jar/BayesClassification.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/src/main/java/com/BayesClassification/BayesClassificationDriver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/src/main/java/com/BayesClassification/BayesClassificationMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/src/main/java/com/BayesClassification/BayesClassificationReducer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/src/main/java/com/BayesClassification/CommaSeparatedOutputFormat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesClassification/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/.idea/artifacts/BayesTraining_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/exp/BayesTraining.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/out/artifacts/BayesTraining_jar/BayesTraining.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/src/main/java/com/BayesTraining/BayesTrainingDriver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/src/main/java/com/BayesTraining/BayesTrainingMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/src/main/java/com/BayesTraining/BayesTrainingReducer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/src/main/java/com/BayesTraining/CommaSeparatedOutputFormat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Sentiment/BayesTraining/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gui/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../gui/app.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2jC2nnKqx5SmuF83hnjmqWatE11" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/hadoop/hadoop_installs/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-client-core-3.2.1.jar",
+    "onboarding.tips.debug.path": "/home/hadoop/workspace/proj/GenreClassification/GenreBayesClassification/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4108860e-c31b-4f47-a55f-fbe9e4e05523" name="Changes" comment="" />
+      <created>1720876909427</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1720876909427</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

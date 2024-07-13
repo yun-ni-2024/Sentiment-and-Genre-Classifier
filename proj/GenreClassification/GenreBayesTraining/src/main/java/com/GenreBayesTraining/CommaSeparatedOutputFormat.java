@@ -33,7 +33,7 @@ public class CommaSeparatedOutputFormat extends FileOutputFormat<Text, IntWritab
         @Override
         public void write(Text key, IntWritable value) throws IOException {
             // Customize the output format here
-            out.writeBytes(key.toString() + "," + value.toString() + "\n");
+            out.writeBytes(key.toString() + "<SEP>" + value.toString() + "\n");
         }
 
         @Override

@@ -15,6 +15,8 @@ status_anal_preference = ""
 status_anal_duration = ""
 status_anal_wordFrequency = ""
 status_anal_genreInfo = ""
+status_senti = ""
+status_genre = ""
 
 @app.route('/process/prep', methods=['POST'])
 def process_prep():
@@ -206,7 +208,7 @@ def process_anal_preference():
         status_anal_preference = "Successful!"
         return jsonify({'message': 'Successful!'}), 200
     except Exception as e:
-        status_anal_popularity = f'Error: {str(e)}'
+        status_anal_preference = f'Error: {str(e)}'
         print(e)
         return jsonify({'message': f'Error: {str(e)}'}), 500
 
@@ -244,7 +246,7 @@ def process_anal_duration():
         status_anal_duration = "Successful!"
         return jsonify({'message': 'Successful!'}), 200
     except Exception as e:
-        status_anal_popularity = f'Error: {str(e)}'
+        status_anal_duration = f'Error: {str(e)}'
         print(e)
         return jsonify({'message': f'Error: {str(e)}'}), 500
 
@@ -301,7 +303,7 @@ def process_anal_wordFrequency():
         status_anal_wordFrequency = "Successful!"
         return jsonify({'message': 'Successful!'}), 200
     except Exception as e:
-        status_anal_popularity = f'Error: {str(e)}'
+        status_anal_wordFrequency = f'Error: {str(e)}'
         print(e)
         return jsonify({'message': f'Error: {str(e)}'}), 500
 
@@ -339,7 +341,91 @@ def process_anal_genreInfo():
         status_anal_genreInfo = "Successful!"
         return jsonify({'message': 'Successful!'}), 200
     except Exception as e:
-        status_anal_popularity = f'Error: {str(e)}'
+        status_anal_genreInfo = f'Error: {str(e)}'
+        print(e)
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/process/senti', methods=['POST'])
+def process_senti():
+    try:
+        hdfs_path = os.path.join(HDFS_PATH, 'gui')
+        global status_senti
+
+        status_senti = "Training model ..."
+        subprocess.run([
+            "hadoop", "jar",
+            os.path.join("jars", "SentiBayesTraining.jar"),
+            os.path.join(hdfs_path, "SongDataset", "sentiment_train.txt"),
+            os.path.join(hdfs_path, "SongDataset", "lyrics"),
+            os.path.join(hdfs_path, "result")
+        ])
+
+        status_senti = "Predicting sentiment ..."
+        subprocess.run([
+            "hadoop", "jar",
+            os.path.join("jars", "SentiBayesClassification.jar"),
+            os.path.join(hdfs_path, "result", "senti_bayes_frequency.txt"),
+            os.path.join(hdfs_path, "SongDataset", "lyrics", "lyric1.txt"),
+            os.path.join(hdfs_path, "result")
+        ])
+
+        subprocess.run([
+            "hdfs", "dfs", "-get",
+            os.path.join(hdfs_path, "result", "task3.txt"),
+            os.path.join(os.getcwd(), "data", "task3.txt")
+        ])
+
+        with zipfile.ZipFile(os.path.join('data', 'sentiment_analysis.zip'), 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for filename in os.listdir('data'):
+                if filename in ['task3.txt']:
+                    zipf.write(os.path.join('data', filename), arcname=filename)
+
+        status_senti = "Successful!"
+        return jsonify({'message': 'Successful!'}), 200
+    except Exception as e:
+        status_senti = f'Error: {str(e)}'
+        print(e)
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/process/genre', methods=['POST'])
+def process_genre():
+    try:
+        hdfs_path = os.path.join(HDFS_PATH, 'gui')
+        global status_genre
+
+        status_genre = "Training model ..."
+        subprocess.run([
+            "hadoop", "jar",
+            os.path.join("jars", "GenreBayesTraining.jar"),
+            os.path.join(hdfs_path, "SongDataset", "genres.txt"),
+            os.path.join(hdfs_path, "SongDataset", "unique_tracks.txt"),
+            os.path.join(hdfs_path, "result")
+        ])
+
+        status_genre = "Predicting genres ..."
+        subprocess.run([
+            "hadoop", "jar",
+            os.path.join("jars", "GenreBayesClassification.jar"),
+            os.path.join(hdfs_path, "result", "genre_bayes_frequency.txt"),
+            os.path.join(hdfs_path, "SongDataset", "unique_tracks.txt"),
+            os.path.join(hdfs_path, "result")
+        ])
+
+        subprocess.run([
+            "hdfs", "dfs", "-get",
+            os.path.join(hdfs_path, "result", "task4.txt"),
+            os.path.join(os.getcwd(), "data", "task4.txt")
+        ])
+
+        with zipfile.ZipFile(os.path.join('data', 'genre_classification.zip'), 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for filename in os.listdir('data'):
+                if filename in ['task4.txt']:
+                    zipf.write(os.path.join('data', filename), arcname=filename)
+
+        status_genre = "Successful!"
+        return jsonify({'message': 'Successful!'}), 200
+    except Exception as e:
+        status_senti = f'Error: {str(e)}'
         print(e)
         return jsonify({'message': f'Error: {str(e)}'}), 500
 
@@ -372,6 +458,16 @@ def get_status_anal_wordFrequency():
 def get_status_anal_genreInfo():
     global status_anal_genreInfo
     return jsonify({'status': status_anal_genreInfo})
+
+@app.route('/status/senti', methods=['GET'])
+def get_status_senti():
+    global status_senti
+    return jsonify({'status': status_senti})
+
+@app.route('/status/genre', methods=['GET'])
+def get_status_genre():
+    global status_genre
+    return jsonify({'status': status_genre})
 
 @app.route('/result/anal/popularity', methods=['GET'])
 def get_result_anal_popularity():
@@ -446,6 +542,42 @@ def get_result_anal_genreInfo():
     except Exception as e:
         return jsonify({'message': f'Error: {str(e)}'}), 500
 
+@app.route('/result/senti', methods=['GET'])
+def get_result_senti():
+    try:
+        result_file_path = os.path.join(os.getcwd(), 'data', 'task3.txt')
+        
+        if not os.path.exists(result_file_path):
+            return jsonify({'message': 'Result file not found'}), 404
+        
+        with open(result_file_path, 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            lines = [line.strip() for line in lines]
+            lines = lines[:10]
+
+        return jsonify(data=lines)
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+    
+@app.route('/result/genre', methods=['GET'])
+def get_result_genre():
+    try:
+        result_file_path = os.path.join(os.getcwd(), 'data', 'task4.txt')
+        
+        if not os.path.exists(result_file_path):
+            return jsonify({'message': 'Result file not found'}), 404
+        
+        with open(result_file_path, 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            lines = [line.strip() for line in lines]
+            lines = lines[:10]
+
+        return jsonify(data=lines)
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
 @app.route('/download/prep', methods=['GET'])
 def download_prep():
     try:
@@ -515,6 +647,32 @@ def download_anal_wordFrequency():
 def download_anal_genreInfo():
     try:
         download_file_path = os.path.join(os.getcwd(), 'data', 'analysis_genreInfo.zip')
+        
+        if not os.path.exists(download_file_path):
+            return jsonify({'message': 'Result file not found'}), 404
+
+        return send_file(download_file_path, as_attachment=True)
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/download/senti', methods=['GET'])
+def download_senti():
+    try:
+        download_file_path = os.path.join(os.getcwd(), 'data', 'sentiment_analysis.zip')
+        
+        if not os.path.exists(download_file_path):
+            return jsonify({'message': 'Result file not found'}), 404
+
+        return send_file(download_file_path, as_attachment=True)
+    
+    except Exception as e:
+        return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/download/genre', methods=['GET'])
+def download_genre():
+    try:
+        download_file_path = os.path.join(os.getcwd(), 'data', 'genre_classification.zip')
         
         if not os.path.exists(download_file_path):
             return jsonify({'message': 'Result file not found'}), 404

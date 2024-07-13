@@ -3,8 +3,8 @@
     <output-path>$PROJECT_DIR$/out/artifacts/GenreBayesClassification_jar</output-path>
     <root id="archive" name="GenreBayesClassification.jar">
       <element id="module-output" name="GenreBayesClassification" />
-      <element id="extracted-dir" path="$USER_HOME$/hadoop_installs/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-client-common-3.2.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/hadoop_installs/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-client-core-3.2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/hadoop_installs/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-client-common-3.2.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/hadoop_installs/hadoop-3.2.1/share/hadoop/common/hadoop-common-3.2.1.jar" path-in-jar="/" />
     </root>
   </artifact>
