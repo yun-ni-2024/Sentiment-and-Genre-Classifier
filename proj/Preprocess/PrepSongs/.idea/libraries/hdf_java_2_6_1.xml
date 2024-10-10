@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="hdf-java-2.6.1">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/hdfgroup/hdf-java/2.6.1/hdf-java-2.6.1.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
