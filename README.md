@@ -102,3 +102,9 @@ To compile and run the Tower Defense game, follow these steps:
 ## Effect Display
 
 Here are some images to showcase the effects:
+
+![](rsc/1.png)
+![](rsc/2.png)
+![](rsc/3.png)
+![](rsc/4.png)
+![](rsc/5.png)
